@@ -1,10 +1,29 @@
 window.addEventListener('DOMContentLoaded', (event) => {
+    init();
+});
+
+function getAllStorageSyncData(top_key) {
+    // Immediately return a promise and start asynchronous work
+    return new Promise((resolve, reject) => {
+        // Asynchronously fetch all data from storage.sync.
+        chrome.storage.local.get(top_key, (items) => {
+            // Pass any observed errors down the promise chain.
+            if (chrome.runtime.lastError) {
+                return reject(chrome.runtime.lastError);
+            }
+            // Pass the data retrieved from storage down the promise chain.
+            resolve(items);
+        });
+    });
+}
+
+async function init() {
     const table = document.getElementById("list-of-url-table");
     table.appendChild(createHead());
     const tbody = document.createElement("tbody");
     table.appendChild(tbody);
 
-    const items = { ...localStorage };
+    const items = await getAllStorageSyncData(null);
     const rows = Object.entries(items)
     // sort desc by visited at
     const rowsSortedByVisitedAt = rows.slice().sort(([keyA, valueA],[keyB, valueB]) => {
@@ -13,28 +32,27 @@ window.addEventListener('DOMContentLoaded', (event) => {
         return a["visitedAt"] < b["visitedAt"];
     });
 
-
     rowsSortedByVisitedAt.map(([key, value]) => {
         tbody.appendChild(createRow(key, value));
     });
 
     // listener
     const removeHistoryButton = findById("clearHistory");
-    removeHistoryButton.innerHTML = browser.i18n.getMessage("clearHistory");
+    removeHistoryButton.innerHTML = chrome.i18n.getMessage("clearHistory");
     removeHistoryButton.addEventListener('click', () => {
         localStorage.clear();
     });
 
     // header
     const header = findById('settings-header');
-    header.innerHTML = browser.i18n.getMessage("settingsHeader");
+    header.innerHTML = chrome.i18n.getMessage("settingsHeader");
 
     // header settings
     const averageMonthTitle = findById("average-month-title");
-    averageMonthTitle.innerHTML = browser.i18n.getMessage("averageMonthTitle");
+    averageMonthTitle.innerHTML = chrome.i18n.getMessage("averageMonthTitle");
 
     const browserHistoryTitle = findById("browser-history-title");
-    browserHistoryTitle.innerHTML = browser.i18n.getMessage("browserHistoryTitle");
+    browserHistoryTitle.innerHTML = chrome.i18n.getMessage("browserHistoryTitle");
 
     // progress bar
     const gradeIconProgressBar = findById("grade-average-icon-progress-bar");
@@ -42,7 +60,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     const averageGrade = computeAverageNote(rowsSortedByVisitedAt, firstDateOfMonth(new Date()), lastDateOfMonth(new Date()));
     computeGradeIconAndPositionOnProgressBar(gradeIconProgressBar, averageGrade);
-});
+}
 
 function createHead() {
     const head = document.createElement("thead");
@@ -50,23 +68,23 @@ function createHead() {
 
     const thLink = document.createElement("th");
     thLink.setAttribute("scope", "col");
-    thLink.innerHTML = browser.i18n.getMessage("linkTable");
+    thLink.innerHTML = chrome.i18n.getMessage("linkTable");
 
     const thGrade = document.createElement("th");
     thGrade.setAttribute("scope", "col");
-    thGrade.innerHTML = browser.i18n.getMessage("gradeTable");
+    thGrade.innerHTML = chrome.i18n.getMessage("gradeTable");
 
     const thScore = document.createElement("th");
     thScore.setAttribute("scope", "col");
-    thScore.innerHTML = browser.i18n.getMessage("scoreTable");
+    thScore.innerHTML = chrome.i18n.getMessage("scoreTable");
 
     const thRequests = document.createElement("th");
     thRequests.setAttribute("scope", "col");
-    thRequests.innerHTML = browser.i18n.getMessage("nbRequestsTable");
+    thRequests.innerHTML = chrome.i18n.getMessage("nbRequestsTable");
 
     const thVisitedAt = document.createElement("th");
     thVisitedAt.setAttribute("scope", "col");
-    thVisitedAt.innerHTML = browser.i18n.getMessage("visitedAtTable");
+    thVisitedAt.innerHTML = chrome.i18n.getMessage("visitedAtTable");
 
     tr.appendChild(thGrade);
     tr.appendChild(thLink);
@@ -117,13 +135,13 @@ function prettyDate(time) {
     if (isNaN(day_diff) || day_diff < 0 || day_diff >= 31) return;
 
     return day_diff == 0 && (
-    diff < 60 && browser.i18n.getMessage("now") 
-    || diff < 120 && browser.i18n.getMessage("minute")
-    || diff < 3600 && browser.i18n.getMessage("minutes", [Math.floor(diff / 60)])
-    || diff < 7200 &&  browser.i18n.getMessage("hour")
-    || diff < 86400 && browser.i18n.getMessage("hours", [Math.floor(diff / 3600)])) 
-    || day_diff == 1 && browser.i18n.getMessage("yesterday") || day_diff < 7 && browser.i18n.getMessage("days", [day_diff]) 
-    || day_diff < 31 && browser.i18n.getMessage("weeks", [Math.ceil(day_diff / 7)]);
+    diff < 60 && chrome.i18n.getMessage("now") 
+    || diff < 120 && chrome.i18n.getMessage("minute")
+    || diff < 3600 && chrome.i18n.getMessage("minutes", [Math.floor(diff / 60)])
+    || diff < 7200 &&  chrome.i18n.getMessage("hour")
+    || diff < 86400 && chrome.i18n.getMessage("hours", [Math.floor(diff / 3600)])) 
+    || day_diff == 1 && chrome.i18n.getMessage("yesterday") || day_diff < 7 && chrome.i18n.getMessage("days", [day_diff]) 
+    || day_diff < 31 && chrome.i18n.getMessage("weeks", [Math.ceil(day_diff / 7)]);
 }
 
 function computeAverageNote(rowsSortedByVisitedAt, fromDate, toDate) {
