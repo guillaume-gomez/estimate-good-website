@@ -3,7 +3,9 @@
   --primary-light: #46a795;
   --secondary-color: #30A8A7;
   --background-color: #212529;
+  --background-card: #292e33;
 }
+
 
 *{
     margin:0;
@@ -37,7 +39,7 @@ h3 {
 table {
   border-spacing: 0px 5px;
   border-collapse: separate;
-  border-radius: 10px;
+  border-radius: 1rem;
   font-size: 1rem;
   letter-spacing: 1px;
   overflow: hidden;
@@ -51,7 +53,7 @@ caption {
 
 thead,
 tfoot {
-  background-color: var(--primary-color);
+  background-color: var(--primary-light);
   font-weight: bold;
   font-size: 1.2rem;
   height: 4rem;
@@ -94,6 +96,7 @@ tbody > tr {
 
 
 button {
+  border: 2px solid red;
   background-color: var(--primary-color);
   color: white;
   border-radius: 6px;
@@ -118,18 +121,6 @@ button:active {
   transform: translateY(0);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
-.button-icon {
-  width: 16px;
-  height: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.clear-icon {
-  background-image: url('../icons/clear-icon.svg');
-}
-
 
 #progress-bar {
   background: rgb(51,173,2);
@@ -200,11 +191,11 @@ button:active {
   padding: 2rem;
 }
 
-.card {
+.card {;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background: #292e33;
+  background: var(--background-card);
   padding: 1rem;
   border-radius: 0.5rem;
 }
@@ -214,21 +205,16 @@ button:active {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  margin: 1rem 0;
 }
 
 .llm-stat-box {
+  border: 2px solid green;
   background-color: var(--background-color);
-  border-radius: 8px;
-  padding: 1rem;
   text-align: center;
   flex: 1;
-  position: relative;
-  overflow: hidden;
   transition: transform 0.2s ease, background-color 0.2s ease;
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
 }
 
 .llm-stat-box:hover {
@@ -240,7 +226,7 @@ button:active {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #30A8A7;
+  color: var(--secondary-color);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: color 0.2s ease;
 }
@@ -268,7 +254,9 @@ button:active {
 
 .stat-content {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
@@ -589,16 +577,8 @@ button:active {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-.settings-category {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-}
 
-.impact-icon, .section-icon {
+.impact-icon{
     width: 24px;
     height: 24px;
     background-size: contain;
@@ -722,57 +702,13 @@ button:active {
 
 /* Enhanced LLM Impact Section Styles */
 
-/* Section headers */
-.section-header {
-    display: flex;
-    align-items: center;
-    border-bottom: 2px solid var(--accent-color, #3bbcbb);
-    padding-bottom: 0.75rem;
-    margin-bottom: 1.5rem;
-}
-
-.section-header h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: var(--primary-text, #f8f8f8);
-}
-
-.subsection-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.subsection-header h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: var(--secondary-text, #e0e0e0);
-}
-
-/* Pulsing animations for icons */
-.pulse {
-    animation: pulse 2s infinite;
-}
-
-.pulse-slow {
-    animation: pulse 3s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
 
 /* Enhanced stat boxes */
 .llm-stat-box {
     background: rgba(59, 188, 187, 0.1);
-    border-radius: 8px;
+    border-radius: 0.5rem;
     padding: 1rem;
     transition: all 0.3s ease;
-    border: 1px solid rgba(59, 188, 187, 0.2);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -1208,7 +1144,7 @@ button:active {
     align-items: center;
     gap: 0.5rem;
     font-weight: bold;
-    color: #30A8A7;
+    color: var(--secondary-color);
 }
 
 .service-name {
@@ -1244,11 +1180,11 @@ button:active {
 }
 
 .carbon-bar {
-    background: linear-gradient(90deg, #30A8A7, #3bbcbb);
+    background: linear-gradient(90deg, var(--secondary-color), #3bbcbb);
 }
 
 .energy-bar {
-    background: linear-gradient(90deg, #46a795, #5ac7b5);
+    background: linear-gradient(90deg, var(--secondary-color), #3bbcdd);
 }
 
 .bar-value {
@@ -1284,9 +1220,9 @@ button:active {
 }
 
 .carbon-color {
-    background: #30A8A7;
+    background: var(--secondary-color);
 }
 
 .energy-color {
-    background: #46a795;
+    background: var(--secondary-color);
 }

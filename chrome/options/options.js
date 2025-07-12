@@ -409,7 +409,7 @@ async function setupLLMImpactSection() {
     llmImpactTitle.innerHTML = `
         <div class="section-header">
             <i class="impact-icon"></i>
-            <h2>${chrome.i18n.getMessage("llmImpactTitle") || "LLM Impact"}</h2>
+            <h3>${chrome.i18n.getMessage("llmImpactTitle") || "LLM Impact"}</h3>
         </div>
     `;
     
