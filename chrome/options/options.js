@@ -226,6 +226,7 @@ function renderPagination(numberOfItems, itemsPerPage, currentPage) {
 
     const firstPageDom = document.createElement("button");
     firstPageDom.innerHTML = "<<";
+    firstPageDom.classList.add("btn-primary");
     firstPageDom.addEventListener('click', async (event) => {
         event.preventDefault();
 
@@ -237,6 +238,7 @@ function renderPagination(numberOfItems, itemsPerPage, currentPage) {
 
     const lastPageDom = document.createElement("button");
     lastPageDom.innerHTML = ">>";
+    lastPageDom.classList.add("btn-primary");
     lastPageDom.addEventListener('click', async (event) => {
         event.preventDefault();
 
@@ -259,6 +261,7 @@ function renderPagination(numberOfItems, itemsPerPage, currentPage) {
             return;
         }
         const buttonIndex = document.createElement("button");
+        buttonIndex.classList.add("btn-primary");
         buttonIndex.innerHTML = i.toString();
         if(i === currentPage) {
             buttonIndex.classList.toggle("pagination-selected")

@@ -4,6 +4,8 @@
   --secondary-color: #30A8A7;
   --background-color: #212529;
   --background-card: #292e33;
+  --background-box: rgba(59, 188, 187, 0.1);
+  --text-color-box: #3bbcbb;
 }
 
 
@@ -53,7 +55,7 @@ caption {
 
 thead,
 tfoot {
-  background-color: var(--primary-light);
+  background: var(--background-box);
   font-weight: bold;
   font-size: 1.2rem;
   height: 4rem;
@@ -72,8 +74,8 @@ td:last-of-type {
 
 tbody > tr {
   border: 5px solid var(--background-color);
-  background-color: white;
-  color: black;
+  background-color: var(--background-color);
+  color: white;
 }
 
 .link-th {
@@ -83,7 +85,7 @@ tbody > tr {
 }
 
 .link-url {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
@@ -93,34 +95,6 @@ tbody > tr {
 
 
 /* END table */
-
-
-button {
-  border: 2px solid red;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 6px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-button:hover {
-  cursor: pointer;
-  background-color: #007d66;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
 
 #progress-bar {
   background: rgb(51,173,2);
@@ -149,6 +123,7 @@ button:active {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 1.25rem;
 }
 
 .pagination-nb-pages{
@@ -161,17 +136,8 @@ button:active {
   display: flex;
 }
 
-.pagination-pages button {
-  min-width: 32px;
-  height: 32px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .pagination-selected {
-  background: var(--primary-light);
+  background: var(--primary-color) !important;
   color: white;
 }
 
@@ -191,7 +157,7 @@ button:active {
   padding: 2rem;
 }
 
-.card {;
+.card {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -207,21 +173,6 @@ button:active {
   gap: 1rem;
 }
 
-.llm-stat-box {
-  border: 2px solid green;
-  background-color: var(--background-color);
-  text-align: center;
-  flex: 1;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-  display: flex;
-  align-items: center;
-}
-
-.llm-stat-box:hover {
-  transform: translateY(-4px);
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
 .llm-stat-value {
   font-size: 1.5rem;
   font-weight: bold;
@@ -231,8 +182,8 @@ button:active {
   transition: color 0.2s ease;
 }
 
-.llm-stat-box:hover .llm-stat-value {
-  color: #3bbcbb; /* Slightly brighter on hover */
+.llm-stat-value {
+  color: var(--text-color-box); /* Slightly brighter on hover */
 }
 
 .llm-stat-label {
@@ -705,11 +656,15 @@ button:active {
 
 /* Enhanced stat boxes */
 .llm-stat-box {
-    background: rgba(59, 188, 187, 0.1);
+    background: var(--background-box);
     border-radius: 0.5rem;
     padding: 1rem;
-    transition: all 0.3s ease;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    display: flex;
+    align-items: center;
 }
 
 .llm-stat-box:hover {
@@ -721,7 +676,7 @@ button:active {
 .llm-stat-value {
     font-size: 1.8rem;
     font-weight: bold;
-    color: var(--accent-color, #3bbcbb);
+    color: var(--text-color-box);
     margin: 0.5rem 0;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -794,7 +749,7 @@ button:active {
 .comparison-value {
     font-size: 1.4rem;
     font-weight: bold;
-    color: var(--accent-color, #3bbcbb);
+    color: var(--text-color-box);
 }
 
 .highlight {
@@ -809,7 +764,7 @@ button:active {
     left: 0;
     width: 100%;
     height: 3px;
-    background: var(--accent-color, #3bbcbb);
+    background: var(--text-color-box);
     border-radius: 2px;
     transform: scaleX(0);
     transform-origin: right;
@@ -923,29 +878,46 @@ button:active {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+.btn-primary {
+  background: var(--text-color-box);
+  border: 1px solid rgba(var(--text-color-box), 0.3);
+}
+
+.btn-primary:hover {
+  background: rgb(from var(--text-color-box) r g b / 75%);
+  box-shadow: 0 4px 12px rgba(var(--text-color-box), 0.2);
+}
+
+.btn-alert {
+  background: rgba(255, 80, 80, 0.15);  
+  border: 1px solid rgba(255, 80, 80, 0.3);
+}
+
+.btn-alert:hover {
+  background: rgba(255, 80, 80, 0.25);
+  box-shadow: 0 4px 12px rgba(255, 80, 80, 0.2);
+}
+
 /* Clear button styling */
-#clearLLMHistory {
+button {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 80, 80, 0.15);
     color: #fff;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 6px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 80, 80, 0.3);
+    transition: all 0.3s ease;  
 }
 
-#clearLLMHistory:hover {
-    background: rgba(255, 80, 80, 0.25);
+button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(255, 80, 80, 0.2);
 }
 
-#clearLLMHistory:active {
+button:active {
     transform: translateY(0);
 }
 
@@ -979,7 +951,7 @@ button:active {
 
 .tab.active {
     background: rgba(59, 188, 187, 0.1);
-    color: var(--accent-color, #3bbcbb);
+    color: var(--text-color-box);
 }
 
 .tab.active::after {
@@ -989,7 +961,7 @@ button:active {
     left: 0;
     width: 100%;
     height: 3px;
-    background: var(--accent-color, #3bbcbb);
+    background: var(--text-color-box);
     animation: slideIn 0.3s ease-out;
 }
 
@@ -1015,23 +987,11 @@ button:active {
     to { opacity: 1; }
 }
 
-@keyframes slide-in {
-    from { transform: translateX(-20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
 
 .fade-in {
     animation: fadeIn 0.5s ease-out forwards;
 }
 
-.slide-in {
-    animation: slide-in 0.5s ease-out forwards;
-}
-
-.grow-bar {
-    transform-origin: left;
-    animation: growBar 1s ease-out forwards;
-}
 
 @keyframes growBar {
     from { transform: scaleX(0); }
@@ -1180,7 +1140,7 @@ button:active {
 }
 
 .carbon-bar {
-    background: linear-gradient(90deg, var(--secondary-color), #3bbcbb);
+    background: linear-gradient(90deg, var(--secondary-color), --text-color-box);
 }
 
 .energy-bar {
